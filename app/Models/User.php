@@ -71,4 +71,17 @@ class User extends Authenticatable
     {
         return $this->hasManyThrough(Question::class, Section::class);
     }
+
+    public function quizHeaders()
+    {
+        return $this->hasMany(QuizHeader::class);
+    }
+
+    public static function search($search)
+    {
+        return empty($search) ? static::query()
+            : static::query()->where('id', 'like', '%' . $search . '%')
+            ->orWhere('name', 'like', '%' . $search . '%')
+            ->orWhere('email', 'like', '%' . $search . '%');
+    }
 }

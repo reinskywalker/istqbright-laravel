@@ -28,7 +28,7 @@ class UpdatePasswordTest extends TestCase
         $this->assertTrue(Hash::check('new-password', $user->fresh()->password));
     }
 
-    public function test_currentCorrectPassword()
+    public function test_passwordCorrectMandatory()
     {
         $this->actingAs($user = User::factory()->create());
 

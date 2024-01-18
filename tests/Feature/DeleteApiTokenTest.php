@@ -14,7 +14,7 @@ class DeleteApiTokenTest extends TestCase
 {
     use RefreshDatabase;
 
-    public function test_destroySession()
+    public function test_ApiTokenDelete()
     {
         if (!Features::hasApiFeatures()) {
             return $this->markTestSkipped('API support is not enabled.');

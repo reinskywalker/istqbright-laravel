@@ -57,7 +57,7 @@ class EmailVerificationTest extends TestCase
         $response->assertRedirect(RouteServiceProvider::HOME . '?verified=1');
     }
 
-    public function test_emailVerificationInvalidHash()
+    public function test_negativeVerifyEmailInvalidHash()
     {
         if (!Features::enabled(Features::emailVerification())) {
             return $this->markTestSkipped('Email verification not enabled.');

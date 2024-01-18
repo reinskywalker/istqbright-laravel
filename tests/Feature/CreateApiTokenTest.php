@@ -13,7 +13,7 @@ class CreateApiTokenTest extends TestCase
 {
     use RefreshDatabase;
 
-    public function test_createAPISession()
+    public function test_createSession()
     {
         if (!Features::hasApiFeatures()) {
             return $this->markTestSkipped('API support is not enabled.');

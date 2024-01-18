@@ -13,7 +13,7 @@ class PasswordResetTest extends TestCase
 {
     use RefreshDatabase;
 
-    public function test_renderPasswordLink()
+    public function test_renderResetPasswordLink()
     {
         if (!Features::enabled(Features::updatePasswords())) {
             return $this->markTestSkipped('Password updates are not enabled.');
@@ -24,7 +24,7 @@ class PasswordResetTest extends TestCase
         $response->assertStatus(200);
     }
 
-    public function test_requestPasswordUrl()
+    public function test_renderRequestPassword()
     {
         if (!Features::enabled(Features::updatePasswords())) {
             return $this->markTestSkipped('Password updates are not enabled.');
@@ -41,7 +41,7 @@ class PasswordResetTest extends TestCase
         Notification::assertSentTo($user, ResetPassword::class);
     }
 
-    public function test_renderResetPassword()
+    public function test_renderResetPasswordScreen()
     {
         if (!Features::enabled(Features::updatePasswords())) {
             return $this->markTestSkipped('Password updates are not enabled.');
@@ -64,7 +64,7 @@ class PasswordResetTest extends TestCase
         });
     }
 
-    public function test_resetValidPassword()
+    public function test_resetWithValidToken()
     {
         if (!Features::enabled(Features::updatePasswords())) {
             return $this->markTestSkipped('Password updates are not enabled.');

@@ -11,14 +11,14 @@ class AuthenticationTest extends TestCase
 {
     use RefreshDatabase;
 
-    public function test_loginRender()
+    public function test_renderLoginScreen()
     {
         $response = $this->get('/login');
 
         $response->assertStatus(200);
     }
 
-    public function testAuthLogin()
+    public function test_authLoginScreen()
     {
         $user = User::factory()->create();
 
@@ -31,7 +31,7 @@ class AuthenticationTest extends TestCase
         $response->assertRedirect(RouteServiceProvider::HOME);
     }
 
-    public function testAuthInvalidNegativeTest()
+    public function test_negativeAuthLoginScreen()
     {
         $user = User::factory()->create();
 
