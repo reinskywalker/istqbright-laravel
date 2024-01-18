@@ -3,7 +3,6 @@
 use App\Http\Controllers\AdminController;
 use Illuminate\Support\Facades\Route;
 
-
 // Default welcome route
 Route::get('/', function () {
     return view('welcome');
