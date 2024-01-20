@@ -4,21 +4,25 @@
     @if($quizInProgress)
     <div class="px-4 -py-3 sm:px-6 ">
         <div class="flex max-w-auto justify-between">
-            <h1 class="text-sm leading-6 font-medium text-gray-900">
+
+            <!-- <h1 class="text-sm leading-6 font-medium text-gray-900">
                 <span class="text-gray-400 font-extrabold p-1">User</span>
                 <span class="font-bold p-2 leading-loose bg-green-500 text-white rounded-lg">{{Auth::user()->name}}</span>
-            </h1>
+            </h1> -->
+            <!-- 
             <p class="mt-1 max-w-2xl text-sm text-gray-500">
-                <span class="text-gray-600 font-extrabold p-1">Quiz Progress </span>
-                <span class="font-bold p-3 leading-loose bg-green-500 text-white rounded-full">{{$count .'/'. $testSize}}</span>
-            </p>
+                <span class="text-gray-600 font-extrabold p-1">Test</span>
+                <span class="font-bold p-3 leading-loose bg-green-500 text-white rounded-md">{{$count .'/'. $testSize}}</span>
+            </p> -->
         </div>
     </div>
+
     <div class="bg-white shadow overflow-hidden sm:rounded-lg mt-6">
         <form wire:submit.prevent>
             <div class="px-4 py-5 sm:px-6">
                 <h3 class="text-lg leading-6 mb-2 font-medium text-gray-900">
                     <span class="mr-2 font-extrabold"> {{$count}}</span> {{$currentQuestion->question}}
+
                     <!-- @if($isLearning)
                     <div x-data={show:false} class="block text-xs">
                         <div class="p-1" id="headingOne">
@@ -31,6 +35,7 @@
                         </div>
                     </div>
                     @endif -->
+
                 </h3>
                 <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-4">
                     @foreach($currentQuestion->answers as $answer)
@@ -45,16 +50,30 @@
                     @endforeach
                 </div>
 
-                <div class="flex items-center justify-end mt-4">
-                    @if($count < $testSize) <button wire:click="nextQuestion" type="submit" @if($isDisabled) disabled='disabled' @endif class="m-4 inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 active:bg-gray-900 focus:outline-none focus:border-gray-900 focus:ring focus:ring-gray-300 disabled:opacity-25 transition">
-                        {{ __('Next Question') }}
-                        </button>
-                        @else
-                        <button wire:click="nextQuestion" type="submit" @if($isDisabled) disabled='disabled' @endif class="m-4 inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 active:bg-gray-900 focus:outline-none focus:border-gray-900 focus:ring focus:ring-gray-300 disabled:opacity-25 transition">
-                            {{ __('Show Results') }}
-                        </button>
-                        @endif
+                <div class="flex">
+
+                    <div class="flex items-center justify-start mt-4"> <!-- Change justify-end to justify-start -->
+                        <p class="mt-1 max-w-2xl text-sm text-gray-500 text-left">
+                            <span class="text-gray-600 font-extrabold p-1">Test</span>
+                            <span class="font-bold p-3 leading-loose bg-green-500 text-white rounded-md">{{$count .'/'. $testSize}}</span>
+                        </p>
+                    </div>
+
+
+                    <div class="flex items-center justify-end mt-4">
+
+                        @if($count < $testSize) <button wire:click="nextQuestion" type="submit" @if($isDisabled) disabled='disabled' @endif class="m-4 inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 active:bg-gray-900 focus:outline-none focus:border-gray-900 focus:ring focus:ring-gray-300 disabled:opacity-25 transition">
+                            {{ __('Next Question') }}
+                            </button>
+                            @else
+                            <button wire:click="nextQuestion" type="submit" @if($isDisabled) disabled='disabled' @endif class="m-4 inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 active:bg-gray-900 focus:outline-none focus:border-gray-900 focus:ring focus:ring-gray-300 disabled:opacity-25 transition">
+                                {{ __('Show Results') }}
+                            </button>
+                            @endif
+                    </div>
+
                 </div>
+
         </form>
     </div>
     @endif
