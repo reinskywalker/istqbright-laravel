@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('AppUser Home') }}
+            {{ __('Home') }}
         </h2>
     </x-slot>
 
@@ -9,7 +9,7 @@
         <div class="bg-white rounded-lg shadow-lg p-5 md:p-20 mx-2">
             <div class="text-center">
                 <h2 class="text-2xl tracking-tight leading-10 font-extrabold text-gray-900 md:text-3xl sm:leading-none">
-                    AppUser<span class="text-indigo-600 ml-2">Home</span>
+                    user<span class="text-indigo-600 ml-2">Home</span>
                 </h2>
                 <p class="text-md mt-10"> Welcome <span class="font-extrabold text-blue-600 mr-2"> {{Auth::user()->name.'!'}} </span> As a registered user, you can access all resources on our website. Thankyou!</p>
             </div>

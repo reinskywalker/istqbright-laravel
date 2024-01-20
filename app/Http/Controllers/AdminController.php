@@ -20,7 +20,7 @@ class AdminController extends Controller
         return view('admins.adminhome', compact('latestUsers', 'sectionCount', 'questionCount', 'userCount', 'quizCount'));
     }
 
-    public function GlobalTest()
+    public function globalQuizzes()
     {
         $activeUsers = User::count();
 
@@ -39,7 +39,7 @@ class AdminController extends Controller
         $quizAverage = QuizHeader::avg('score');
 
         return view(
-            'admins.GlobalTest',
+            'admins.globalQuizzes',
             compact(
                 'sections',
                 'activeUsers',

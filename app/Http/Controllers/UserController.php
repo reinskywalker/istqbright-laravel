@@ -8,14 +8,14 @@ use App\Models\Section;
 use App\Models\Question;
 use App\Models\QuizHeader;
 
-class AppUserController extends Controller
+class userController extends Controller
 {
-    public function startQuiz()
+    public function beginTest()
     {
-        return view('appusers.quiz');
+        return view('users.quiz');
     }
 
-    public function userQuizHome()
+    public function userHome()
     {
         $activeUsers = User::count();
 
@@ -37,7 +37,7 @@ class AppUserController extends Controller
         $quizAverage = auth()->user()->quizHeaders()->avg('score');
 
         return view(
-            'appusers.userQuizHome',
+            'users.userHome',
             compact(
                 'sections',
                 'activeUsers',
@@ -50,7 +50,7 @@ class AppUserController extends Controller
     }
 
 
-    public function deleteUserQuiz($id)
+    public function deleteUserTest($id)
     {
         $quizheader = QuizHeader::findOrFail($id);
         if (auth()->id() == $quizheader->user_id) {
@@ -62,30 +62,23 @@ class AppUserController extends Controller
     }
     public function userQuizDetails($id)
     {
-        // Answers with alphabetical choice
         $choice = collect(['A', 'B', 'C', 'D']);
 
-        //Get quiz summary record for the given quiz
         $userQuizDetails = QuizHeader::where('id', $id)
             ->with('section')->first();
 
-        //Extract question taken by the users stored as a serialized string while takeing the quiz
         $quizQuestionsList = collect(unserialize($userQuizDetails->questions_taken));
 
-        //Get the actual quiz questiona and answers from Quiz table using quiz_header_id
-        $UserTest = Quiz::where('quiz_header_id', $userQuizDetails->id)
+        $userQuiz = Quiz::where('quiz_header_id', $userQuizDetails->id)
             ->orderBy('question_id', 'ASC')->get();
-        //dd($UserTest);
-        //Get the Questions and related answers taken by the user during the quiz
         $quizQuestions = Question::whereIn('id', $quizQuestionsList)->orderBy('id', 'ASC')->with('answers')->get();
 
-        //pass the data using compact to the view to display
         return view(
-            'appusers.userQuizDetail',
+            'users.userQuizDetail',
             compact(
                 'userQuizDetails',
                 'quizQuestionsList',
-                'UserTest',
+                'userQuiz',
                 'quizQuestions',
                 'choice'
             )

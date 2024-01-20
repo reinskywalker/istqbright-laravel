@@ -2,7 +2,7 @@
     <x-slot name="header">
         <div class="md:flex justify-between">
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                {{ __('User Quiz Home') }}
+                {{ __('Global Quiz Home') }}
             </h2>
         </div>
     </x-slot>
@@ -11,7 +11,7 @@
         <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
             <div class="mx-auto">
                 <div class="flex justify-between items-center py-4">
-                    <a href="{{route('startQuiz')}}" class=" tracking-wide font-bold rounded border-2 border-blue-500 hover:border-blue-500 bg-blue-500 text-white hover:bg-blue-600 transition shadow-md py-1 px-6 items-center">Take a New Quiz</a>
+                    <a href="{{route('beginTest')}}" class=" tracking-wide font-bold rounded border-2 border-blue-500 hover:border-blue-500 bg-blue-500 text-white hover:bg-blue-600 transition shadow-md py-1 px-6 items-center">Take a New Quiz</a>
                     <p class="tracking-wide font-bold rounded @if(round($quizAverage,2)<70) bg-red-500 @endif  @if(round($quizAverage,2)>=70) bg-green-600 @endif text-white shadow-md py-2 px-6 items-center">Average Score: <span class="mx-2"> {{round($quizAverage,2) .'%'}}</span></p>
                 </div>
                 <section class="text-gray-600 body-font">
@@ -131,7 +131,7 @@
                                                         <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-11a1 1 0 10-2 0v2H7a1 1 0 100 2h2v2a1 1 0 102 0v-2h2a1 1 0 100-2h-2V7z" clip-rule="evenodd" />
                                                     </svg>
                                                 </a>
-                                                <form action="{{route('deleteUserQuiz', $quiz->id)}}" method="post">
+                                                <form action="{{route('deleteUserTest', $quiz->id)}}" method="post">
                                                     @csrf
                                                     <a class="text-red-500 hover:text-red-700">
                                                         <button type="submit">
@@ -160,7 +160,7 @@
     <script>
         const chart = new Chartisan({
             el: '#chart',
-            url: "@chart('user_quiz')",
+            url: "@chart('global_quizzes')",
             loader: {
                 color: '#ff00ff',
                 size: [60, 60],

@@ -9,7 +9,7 @@ use Chartisan\PHP\Chartisan;
 use Illuminate\Http\Request;
 use ConsoleTVs\Charts\BaseChart;
 
-class GlobalTest extends BaseChart
+class globalQuizzes extends BaseChart
 {
     /**
      * Handles the HTTP request for the given chart.

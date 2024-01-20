@@ -8,7 +8,7 @@ use Chartisan\PHP\Chartisan;
 use ConsoleTVs\Charts\BaseChart;
 use Illuminate\Http\Request;
 
-class UserTest extends BaseChart
+class UserQuiz extends BaseChart
 {
     /**
      * Handles the HTTP request for the given chart.

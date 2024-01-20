@@ -12,17 +12,12 @@
 
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    @hasrole('admin')
-                    <x-jet-nav-link href="{{ route('adminhome') }}" :active="request()->routeIs('adminhome')">
-                        {{ __('Admin Home') }}
+                    <x-jet-nav-link href="{{ route('userHome') }}" :active="request()->routeIs('userHome')">
+                        {{ __('Home') }}
                     </x-jet-nav-link>
-                    @endhasrole
                     @hasrole('user|admin|superadmin')
-                    <x-jet-nav-link href="{{ route('startQuiz') }}" :active="request()->routeIs('startQuiz')">
-                        {{ __('Take Quiz') }}
-                    </x-jet-nav-link>
-                    <x-jet-nav-link href="{{ route('userQuizHome') }}" :active="request()->routeIs('userQuizHome')">
-                        {{ __('User Quiz Home') }}
+                    <x-jet-nav-link href="{{ route('beginTest') }}" :active="request()->routeIs('beginTest')">
+                        {{ __('Test') }}
                     </x-jet-nav-link>
                     @endhasrole
                 </div>
@@ -47,12 +42,10 @@
 
                         <x-slot name="content">
                             <div class="w-60">
-                                <!-- Team Management -->
                                 <div class="block px-4 py-2 text-xs text-gray-400">
                                     {{ __('Manage Team') }}
                                 </div>
 
-                                <!-- Team Settings -->
                                 <x-jet-dropdown-link href="{{ route('teams.show', Auth::user()->currentTeam->id) }}">
                                     {{ __('Team Settings') }}
                                 </x-jet-dropdown-link>
@@ -85,7 +78,12 @@
                         <x-slot name="trigger">
                             @if (Laravel\Jetstream\Jetstream::managesProfilePhotos())
                             <button class="flex text-sm border-2 border-transparent rounded-full focus:outline-none focus:border-gray-300 transition">
-                                <img class="h-8 w-8 rounded-full object-cover" src="{{ Auth::user()->profile_photo_url }}" alt="{{ Auth::user()->name }}" />
+                                <div class="block rounded-md rounded-full px-4 py-2 text-xs text-gray-800 flex items-center border border-gray-300">
+                                    <img class="h-8 w-8 object-cover rounded-full mr-md rounded-fullmr-2" src="{{ Auth::user()->profile_photo_url }}" alt="{{ Auth::user()->name }}" />
+                                    {{ Auth::user()->name }}
+                                </div>
+
+
                             </button>
                             @else
                             <span class="inline-flex rounded-md">
@@ -109,6 +107,12 @@
                             <x-jet-dropdown-link href="{{ route('profile.show') }}">
                                 {{ __('Profile') }}
                             </x-jet-dropdown-link>
+
+                            @hasrole('admin')
+                            <x-jet-dropdown-link href="{{ route('adminhome') }}" :inactive="request()->routeIs('adminhome')">
+                                {{ __('Admin Panel') }}
+                            </x-jet-dropdown-link>
+                            @endhasrole
 
                             @if (Laravel\Jetstream\Jetstream::hasApiFeatures())
                             <x-jet-dropdown-link href="{{ route('api-tokens.index') }}">
@@ -153,11 +157,11 @@
             </x-jet-responsive-nav-link>
             @endhasrole
             @hasrole('user|admin|superadmin')
-            <x-jet-responsive-nav-link href="{{ route('startQuiz') }}" :active="request()->routeIs('startQuiz')">
+            <x-jet-responsive-nav-link href="{{ route('beginTest') }}" :active="request()->routeIs('beginTest')">
                 {{ __('Take Quiz') }}
             </x-jet-responsive-nav-link>
-            <x-jet-responsive-nav-link href="{{ route('userQuizHome') }}" :active="request()->routeIs('userQuizHome')">
-                {{ __('User Quiz Home') }}
+            <x-jet-responsive-nav-link href="{{ route('userHome') }}" :active="request()->routeIs('userHome')">
+                {{ __('ISTQBright Home') }}
             </x-jet-responsive-nav-link>
             @endhasrole
         </div>

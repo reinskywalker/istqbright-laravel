@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
-use App\Http\Controllers\AppUserController;
+use App\Http\Controllers\userController;
 use App\Http\Controllers\ManageUserController;
 use App\Http\Controllers\SectionsController;
 use App\Http\Controllers\QuestionsController;
@@ -19,12 +19,10 @@ use App\Http\Controllers\QuestionsController;
 */
 
 Route::get('/', function () {
-    return redirect()->route('login');
+    return view('welcome');
 })->name('welcome');
 
 Route::middleware(['auth', 'verified', 'role:admin'])->prefix('admin')->group(function () {
-
-    //Route::resource('users', ManageUserController::class);
 
     Route::get('/users', [ManageUserController::class, 'index'])->name('usersIndex');
 
@@ -65,17 +63,17 @@ Route::middleware(['auth', 'verified', 'role:admin'])->prefix('admin')->group(fu
         ->name('deleteQuestion');
 });
 
-Route::middleware(['auth', 'verified', 'role:admin|user'])->prefix('appuser')->group(function () {
+Route::middleware(['auth', 'verified', 'role:admin|user'])->prefix('user')->group(function () {
 
-    Route::get('/userQuizHome', [AppUserController::class, 'userQuizHome'])
-        ->name('userQuizHome');
+    Route::get('/userHome', [userController::class, 'userHome'])
+        ->name('userHome');
 
-    Route::get('/userQuizDetails/{id}', [AppUserController::class, 'userQuizDetails'])
+    Route::get('/userQuizDetails/{id}', [userController::class, 'userQuizDetails'])
         ->name('userQuizDetails');
 
-    Route::post('/deleteUserQuiz/{id}', [AppUserController::class, 'deleteUserQuiz'])
-        ->name('deleteUserQuiz');
+    Route::post('/deleteUserTest/{id}', [userController::class, 'deleteUserTest'])
+        ->name('deleteUserTest');
 
-    Route::get('/startQuiz', [AppUserController::class, 'startQuiz'])
-        ->name('startQuiz');
+    Route::get('/begin-test', [userController::class, 'beginTest'])
+        ->name('beginTest');
 });

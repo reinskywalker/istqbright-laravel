@@ -26,8 +26,8 @@ class AppServiceProvider extends ServiceProvider
     public function boot(Charts $charts)
     {
         $charts->register([
-            \App\Charts\UserTest::class,
-            \App\Charts\GlobalTest::class,
+            \App\Charts\UserQuiz::class,
+            \App\Charts\globalQuizzes::class,
             \App\Charts\MonthlyUsers::class,
         ]);
     }
