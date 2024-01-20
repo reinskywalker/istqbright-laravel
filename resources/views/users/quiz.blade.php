@@ -25,7 +25,14 @@
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
                 Home
             </h2>
-            <div id="clock" class="text-right">14:27:40</div>
+
+
+            <div id="clock" class="text-right text-3xl font-bold text-gray-800">
+                -:-:-
+            </div>
+
+
+
         </div>
 
 

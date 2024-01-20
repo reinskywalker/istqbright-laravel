@@ -1,40 +1,18 @@
 <div class="bg-white rounded-lg shadow-lg p-5 mt-10 md:p-20 mx-2">
 
-    <!-- Start of quiz box -->
     @if($quizInProgress)
     <div class="px-4 -py-3 sm:px-6 ">
         <div class="flex max-w-auto justify-between">
 
-            <!-- <h1 class="text-sm leading-6 font-medium text-gray-900">
-                <span class="text-gray-400 font-extrabold p-1">User</span>
-                <span class="font-bold p-2 leading-loose bg-green-500 text-white rounded-lg">{{Auth::user()->name}}</span>
-            </h1> -->
-            <!-- 
-            <p class="mt-1 max-w-2xl text-sm text-gray-500">
-                <span class="text-gray-600 font-extrabold p-1">Test</span>
-                <span class="font-bold p-3 leading-loose bg-green-500 text-white rounded-md">{{$count .'/'. $testSize}}</span>
-            </p> -->
         </div>
     </div>
 
-    <div class="bg-white shadow overflow-hidden sm:rounded-lg mt-6">
+    <div class="bg-white shadow overflow-hidden sm:rounded-lg mt-3">
         <form wire:submit.prevent>
             <div class="px-4 py-5 sm:px-6">
                 <h3 class="text-lg leading-6 mb-2 font-medium text-gray-900">
                     <span class="mr-2 font-extrabold"> {{$count}}</span> {{$currentQuestion->question}}
 
-                    <!-- @if($isLearning)
-                    <div x-data={show:false} class="block text-xs">
-                        <div class="p-1" id="headingOne">
-                            <button @click="show=!show" class="underline text-blue-500 hover:text-blue-700 focus:outline-none text-xs px-3" type="button">
-                                Explanation
-                            </button>
-                        </div>
-                        <div x-show="show" class="block p-2 bg-green-100 text-xs">
-                            {{$currentQuestion->explanation}}
-                        </div>
-                    </div>
-                    @endif -->
 
                 </h3>
                 <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-4">
@@ -52,18 +30,28 @@
 
                 <div class="flex">
 
-                    <div class="flex items-center justify-start mt-4"> <!-- Change justify-end to justify-start -->
+                    <div class="flex items-center justify-end mt-4">
+                        @if($count < $testSize) <button wire:click="nextQuestion" type="submit" @if($isDisabled) disabled='disabled' @endif class="m-4 p-2 inline-flex items-center px-4 py-2 bg-blue-500 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-blue-900 active:bg-blue-900 focus:outline-none focus:border-gray-900 focus:ring focus:ring-gray-300 disabled:opacity-25 transition">
+                            {{ __('Next') }}
+                            </button>
+                            @else
+                            <button wire:click="nextQuestion" type="submit" @if($isDisabled) disabled='disabled' @endif class="m-4 inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 active:bg-gray-900 focus:outline-none focus:border-gray-900 focus:ring focus:ring-gray-300 disabled:opacity-25 transition">
+                                {{ __('Show Results') }}
+                            </button>
+                            @endif
+                    </div>
+
+                    <div class="flex items-center justify-start mt-4">
                         <p class="mt-1 max-w-2xl text-sm text-gray-500 text-left">
                             <span class="text-gray-600 font-extrabold p-1">Test</span>
-                            <span class="font-bold p-3 leading-loose bg-green-500 text-white rounded-md">{{$count .'/'. $testSize}}</span>
+                            <span class="font-bold p-2 leading-loose bg-blue-500 text-white rounded-md">{{$count .' / '. $testSize}}</span>
                         </p>
                     </div>
 
 
                     <div class="flex items-center justify-end mt-4">
-
-                        @if($count < $testSize) <button wire:click="nextQuestion" type="submit" @if($isDisabled) disabled='disabled' @endif class="m-4 inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 active:bg-gray-900 focus:outline-none focus:border-gray-900 focus:ring focus:ring-gray-300 disabled:opacity-25 transition">
-                            {{ __('Next Question') }}
+                        @if($count < $testSize) <button wire:click="nextQuestion" type="submit" @if($isDisabled) disabled='disabled' @endif class="m-4 p-2 inline-flex items-center px-4 py-2 bg-blue-500 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-blue-900 active:bg-blue-900 focus:outline-none focus:border-gray-900 focus:ring focus:ring-gray-300 disabled:opacity-25 transition">
+                            {{ __('Next') }}
                             </button>
                             @else
                             <button wire:click="nextQuestion" type="submit" @if($isDisabled) disabled='disabled' @endif class="m-4 inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 active:bg-gray-900 focus:outline-none focus:border-gray-900 focus:ring focus:ring-gray-300 disabled:opacity-25 transition">
@@ -77,10 +65,8 @@
         </form>
     </div>
     @endif
-    <!-- end of quiz box -->
 
     <P>
-
 
     </P>
     @if($showResult)
@@ -148,38 +134,23 @@
                     <form wire:submit.prevent="beginTest">
                         @csrf
                         <h2 class="text-gray-900 text-lg font-medium title-font mb-5">Challenge Yourself</h2>
+
+
+
+
                         <div class="relative mx-full mb-4">
-
-                            <div x-data="{ open: false }" class="relative inline-block">
-                                <button @click="open = !open" class="bg-gray-500 text-white py-2 px-4 rounded-md focus:outline-none focus:bg-gray-600">
-                                    @if($sections->isEmpty())
-                                    No Quiz Sections Available Yet
-                                    @else
-                                    @if($sectionId)
-                                    {{ $sections->find($sectionId)->name }}
-                                    @else
-                                    Select Module
-                                    @endif
-                                    @endif
-                                </button>
-
-                                <div x-show="open" @click.away="open = false" class="absolute z-50 mt-2 w-full rounded-md bg-white shadow-lg">
-                                    <select name="section" id="section_id" wire:model="sectionId" class="block w-full py-2 px-4">
-                                        @if($sections->isEmpty())
-                                        <option value="">No Quiz Sections Available Yet</option>
-                                        @else
-                                        <option value="">Select Module</option>
-                                        @foreach($sections as $section)
-                                        @if($section->questions_count > 0)
-                                        <option value="{{ $section->id }}">{{ $section->name }}</option>
-                                        @endif
-                                        @endforeach
-                                        @endif
-                                    </select>
-                                </div>
-                            </div>
-
-
+                            <select name="section" id="section_id" wire:model="sectionId" class="block w-full mt-1 rounded-md bg-gray-200 border-2 bg-gray-600 focus:bg-white focus:ring-0">
+                                @if($sections->isEmpty())
+                                <option value="">No Quiz Sections Available Yet</option>
+                                @else
+                                <option class="text-gray-900">Select Module</option>
+                                @foreach($sections as $section)
+                                @if($section->questions_count>0)
+                                <option value="{{$section->id}}">{{$section->name}}</option>
+                                @endif
+                                @endforeach
+                                @endif
+                            </select>
                             @error('sectionId') <span class="text-red-400 text-xs">{{ $message }}</span> @enderror
                         </div>
                         <div class="flex items-start">

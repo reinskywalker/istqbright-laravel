@@ -17,6 +17,7 @@
                     <span class="text-bold bg-green-100 px-2 rounded-lg">You took this quiz {{$userQuizDetails->updated_at->diffForHumans()}}</span>
                 </p>
             </div>
+            
             <div class="border-t border-gray-300">
                 <dl>
                     <div class="bg-gray-50 px-4 py-3 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">

@@ -20,7 +20,7 @@
                         <div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
                             <div class="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
                                 <table class="min-w-full divide-y divide-gray-200">
-                                    <thead class="tracking-wide font-bold rounded border-2 bg-green-500 text-white  transition shadow-md py-2 px-6 items-center">
+                                    <thead class="tracking-wide font-bold rounded border-2 bg-blue-500 text-white  transition shadow-md py-2 px-6 items-center">
                                         <tr>
                                             <th scope=" col" class="px-6 py-3 text-left text-xs font-extrabold  uppercase tracking-wider">
                                                 Item
@@ -125,7 +125,7 @@
                         <div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
                             <div class="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
                                 <table class="min-w-full divide-y divide-gray-200">
-                                    <thead class="tracking-wide font-bold rounded border-2 bg-green-500 text-white  transition shadow-md py-2 px-6 items-center">
+                                    <thead class="tracking-wide font-bold rounded border-2 bg-blue-500 text-white  transition shadow-md py-2 px-6 items-center">
                                         <tr>
                                             <th scope="col" class="px-6 py-3 text-left text-xs font-bold text-white uppercase tracking-wider">
                                                 Name

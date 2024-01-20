@@ -12,7 +12,7 @@
             <div class="mx-auto">
                 <div class="flex justify-between items-center py-4">
                     <a href="{{route('beginTest')}}" class=" tracking-wide font-bold rounded border-2 border-blue-500 hover:border-blue-500 bg-blue-500 text-white hover:bg-blue-600 transition shadow-md py-1 px-6 items-center">Take a New Quiz</a>
-                    <p class="tracking-wide font-bold rounded @if(round($quizAverage,2)<70) bg-red-500 @endif  @if(round($quizAverage,2)>=70) bg-green-600 @endif text-white shadow-md py-2 px-6 items-center">Average Score: <span class="mx-2"> {{round($quizAverage,2) .'%'}}</span></p>
+                    <p class="tracking-wide font-bold rounded @if(round($quizAverage,2)<70) bg-red-500 @endif  @if(round($quizAverage,2)>=70) bg-blue-600 @endif text-white shadow-md py-2 px-6 items-center">Average Score: <span class="mx-2"> {{round($quizAverage,2) .'%'}}</span></p>
                 </div>
                 <section class="text-gray-600 body-font">
                     <div class="container px-5 py-5 mx-auto">
@@ -81,7 +81,7 @@
                         <div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
                             <div class="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
                                 <table class="min-w-full divide-y divide-gray-200">
-                                    <thead class="tracking-wide font-bold rounded border-2 bg-green-500 text-white  transition shadow-md py-2 px-6 items-center">
+                                    <thead class="tracking-wide font-bold rounded border-2 bg-blue-500 text-white  transition shadow-md py-2 px-6 items-center">
                                         <tr>
                                             <th scope="col" class="px-6 py-3 text-left text-xs font-bold text-white uppercase tracking-wider">
                                                 Quiz Size
@@ -102,7 +102,7 @@
                                     </thead>
                                     <tbody class="capitalize bg-white divide-y divide-gray-200">
                                         @foreach($userQuizzes as $quiz)
-                                        <tr class="hover:bg-green-100">
+                                        <tr class="hover:bg-blue-100">
                                             <td class="px-6 ">
                                                 <div class="flex items-center">
                                                     <div class="ml-4">
@@ -126,7 +126,7 @@
                                                 <div class="text-sm text-gray-900">{{ $quiz->updated_at->diffForHumans()}}</div>
                                             </td>
                                             <td class="sm:flex align-middle justify-center items-center px-6 py-1 text-right text-sm font-medium">
-                                                <a href="{{route('userQuizDetails', $quiz->id)}}" class="text-green-500 hover:text-green-700">
+                                                <a href="{{route('userQuizDetails', $quiz->id)}}" class="text-blue-500 hover:text-blue-700">
                                                     <svg xmlns="http://www.w3.org/2000/svg" class="text-blue-500 hover:text-blue-700 h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
                                                         <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-11a1 1 0 10-2 0v2H7a1 1 0 100 2h2v2a1 1 0 102 0v-2h2a1 1 0 100-2h-2V7z" clip-rule="evenodd" />
                                                     </svg>

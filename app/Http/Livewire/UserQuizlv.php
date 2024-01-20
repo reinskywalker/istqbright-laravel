@@ -115,6 +115,24 @@ class UserQuizlv extends Component
         return $question;
     }
 
+    public function getPreviousQuestion()
+    {
+        if (count($this->answeredQuestions) > 1) {
+            array_pop($this->answeredQuestions);
+
+            $previousQuestionId = end($this->answeredQuestions);
+
+            $previousQuestion = Question::where('id', $previousQuestionId)
+                ->with('answers')
+                ->first();
+
+            return $previousQuestion;
+        }
+
+        return null;
+    }
+
+
     public function beginTest()
     {
 
@@ -159,5 +177,24 @@ class UserQuizlv extends Component
 
         // random test
         $this->currentQuestion = $this->getNextQuestion();
+    }
+
+    public function previousQuestion()
+    {
+        if ($this->count > 1) {
+            array_pop($this->answeredQuestions);
+
+            $previousQuestionId = end($this->answeredQuestions);
+
+            $previousQuestion = Question::where('id', $previousQuestionId)
+                ->with('answers')
+                ->first();
+
+            $this->count--;
+
+            $this->currentQuestion = $previousQuestion;
+
+            $this->reset(['userAnswered', 'isDisabled']);
+        }
     }
 }
