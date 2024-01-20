@@ -71,6 +71,7 @@
                     </x-jet-dropdown>
                 </div>
                 @endif
+                
 
                 <!-- Settings Dropdown -->
                 <div class="ml-3 relative">
@@ -79,11 +80,12 @@
                             @if (Laravel\Jetstream\Jetstream::managesProfilePhotos())
                             <button class="flex text-sm border-2 border-transparent rounded-full focus:outline-none focus:border-gray-300 transition">
                                 <div class="block rounded-md rounded-full px-4 py-2 text-xs text-gray-800 flex items-center border border-gray-300">
-                                    <img class="h-8 w-8 object-cover rounded-full mr-md rounded-fullmr-2" src="{{ Auth::user()->profile_photo_url }}" alt="{{ Auth::user()->name }}" />
+                                    <img class="h-8 w-8 object-cover rounded-full mr-md rounded-full mr-2" src="{{ Auth::user()->profile_photo_url }}" alt="{{ Auth::user()->name }}" />
                                     {{ Auth::user()->name }}
                                 </div>
 
 
+                                
                             </button>
                             @else
                             <span class="inline-flex rounded-md">

@@ -79,6 +79,10 @@
     @endif
     <!-- end of quiz box -->
 
+    <P>
+
+
+    </P>
     @if($showResult)
     <section class="text-gray-600 body-font">
         <div class="bg-white border-2 border-gray-300 shadow overflow-hidden sm:rounded-lg">
@@ -145,18 +149,37 @@
                         @csrf
                         <h2 class="text-gray-900 text-lg font-medium title-font mb-5">Challenge Yourself</h2>
                         <div class="relative mx-full mb-4">
-                            <select name="section" id="section_id" wire:model="sectionId" class="block w-full mt-1 rounded-md bg-gray-100 border-2 border-gray-500 focus:bg-white focus:ring-0">
-                                @if($sections->isEmpty())
-                                <option value="">No Quiz Sections Available Yet</option>
-                                @else
-                                <option class="text-gray-900">Select Module</option>
-                                @foreach($sections as $section)
-                                @if($section->questions_count>0)
-                                <option value="{{$section->id}}">{{$section->name}}</option>
-                                @endif
-                                @endforeach
-                                @endif
-                            </select>
+
+                            <div x-data="{ open: false }" class="relative inline-block">
+                                <button @click="open = !open" class="bg-gray-500 text-white py-2 px-4 rounded-md focus:outline-none focus:bg-gray-600">
+                                    @if($sections->isEmpty())
+                                    No Quiz Sections Available Yet
+                                    @else
+                                    @if($sectionId)
+                                    {{ $sections->find($sectionId)->name }}
+                                    @else
+                                    Select Module
+                                    @endif
+                                    @endif
+                                </button>
+
+                                <div x-show="open" @click.away="open = false" class="absolute z-50 mt-2 w-full rounded-md bg-white shadow-lg">
+                                    <select name="section" id="section_id" wire:model="sectionId" class="block w-full py-2 px-4">
+                                        @if($sections->isEmpty())
+                                        <option value="">No Quiz Sections Available Yet</option>
+                                        @else
+                                        <option value="">Select Module</option>
+                                        @foreach($sections as $section)
+                                        @if($section->questions_count > 0)
+                                        <option value="{{ $section->id }}">{{ $section->name }}</option>
+                                        @endif
+                                        @endforeach
+                                        @endif
+                                    </select>
+                                </div>
+                            </div>
+
+
                             @error('sectionId') <span class="text-red-400 text-xs">{{ $message }}</span> @enderror
                         </div>
                         <div class="flex items-start">
@@ -181,7 +204,7 @@
                             </div>
                         </div>
 
-                        <button type="submit" class="block w-full rounded-lg text-white bg-green-400 border-0 py-2 px-8 focus:outline-none hover:bg-green-600 rounded text-lg">Begin Test</button>
+                        <button type="submit" class="block w-full rounded-lg text-white bg-blue-500 border-0 py-2 px-8 focus:outline-none hover:bg-green-600 rounded text-lg">Begin Test</button>
                     </form>
                 </div>
             </div>
