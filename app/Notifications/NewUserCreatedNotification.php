@@ -42,7 +42,7 @@ class NewUserCreatedNotification extends Notification implements ShouldQueue
     public function toMail($notifiable)
     {
         //dd($notifiable);
-        return (new MailMessage)
+        return (new MailMessage())
             ->line('Welcome to Hunza App: ' . $notifiable->user->id)
             ->action('Signin', url('/login'))
             ->line('Thank you for using our application!');

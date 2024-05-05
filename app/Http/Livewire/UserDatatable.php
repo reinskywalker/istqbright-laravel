@@ -9,7 +9,6 @@ use RealRashid\SweetAlert\Facades\Alert;
 
 class UserDatatable extends Component
 {
-
     use WithPagination;
     public $message = '';
     public $perPage = 15;
