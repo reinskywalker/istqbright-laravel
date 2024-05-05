@@ -16,9 +16,9 @@ class EmailVerificationTest extends TestCase
 {
     use RefreshDatabase;
 
-    public function test_renderEmailVerification()
+    public function test_email_verification_screen_can_be_rendered()
     {
-        if (!Features::enabled(Features::emailVerification())) {
+        if (! Features::enabled(Features::emailVerification())) {
             return $this->markTestSkipped('Email verification not enabled.');
         }
 
@@ -31,9 +31,9 @@ class EmailVerificationTest extends TestCase
         $response->assertStatus(200);
     }
 
-    public function test_emailVerification()
+    public function test_email_can_be_verified()
     {
-        if (!Features::enabled(Features::emailVerification())) {
+        if (! Features::enabled(Features::emailVerification())) {
             return $this->markTestSkipped('Email verification not enabled.');
         }
 
@@ -54,12 +54,12 @@ class EmailVerificationTest extends TestCase
         Event::assertDispatched(Verified::class);
 
         $this->assertTrue($user->fresh()->hasVerifiedEmail());
-        $response->assertRedirect(RouteServiceProvider::HOME . '?verified=1');
+        $response->assertRedirect(RouteServiceProvider::HOME.'?verified=1');
     }
 
-    public function test_emailVerificationInvalidHash()
+    public function test_email_can_not_verified_with_invalid_hash()
     {
-        if (!Features::enabled(Features::emailVerification())) {
+        if (! Features::enabled(Features::emailVerification())) {
             return $this->markTestSkipped('Email verification not enabled.');
         }
 

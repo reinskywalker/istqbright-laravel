@@ -5,19 +5,19 @@
             <div class="flex">
                 <!-- Logo -->
                 <div class="flex-shrink-0 flex items-center">
-                    <a href="{{ route('dashboard') }}">
+                    <a href="{{ route('welcome') }}">
                         <x-jet-application-mark class="block h-9 w-auto" />
                     </a>
                 </div>
 
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-jet-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
-                        {{ __('Dashboard') }}
+                    <x-jet-nav-link href="{{ route('userHome') }}" :active="request()->routeIs('userHome')">
+                        {{ __('Home') }}
                     </x-jet-nav-link>
-                    @hasrole('admin')
-                    <x-jet-nav-link href="{{ route('adminhome') }}" :active="request()->routeIs('adminhome')">
-                        {{ __('Admin Home') }}
+                    @hasrole('user|admin|superadmin')
+                    <x-jet-nav-link href="{{ route('beginTest') }}" :active="request()->routeIs('beginTest')">
+                        {{ __('Test') }}
                     </x-jet-nav-link>
                     @endhasrole
                 </div>
@@ -42,12 +42,10 @@
 
                         <x-slot name="content">
                             <div class="w-60">
-                                <!-- Team Management -->
                                 <div class="block px-4 py-2 text-xs text-gray-400">
                                     {{ __('Manage Team') }}
                                 </div>
 
-                                <!-- Team Settings -->
                                 <x-jet-dropdown-link href="{{ route('teams.show', Auth::user()->currentTeam->id) }}">
                                     {{ __('Team Settings') }}
                                 </x-jet-dropdown-link>
@@ -73,6 +71,7 @@
                     </x-jet-dropdown>
                 </div>
                 @endif
+                
 
                 <!-- Settings Dropdown -->
                 <div class="ml-3 relative">
@@ -80,7 +79,13 @@
                         <x-slot name="trigger">
                             @if (Laravel\Jetstream\Jetstream::managesProfilePhotos())
                             <button class="flex text-sm border-2 border-transparent rounded-full focus:outline-none focus:border-gray-300 transition">
-                                <img class="h-8 w-8 rounded-full object-cover" src="{{ Auth::user()->profile_photo_url }}" alt="{{ Auth::user()->name }}" />
+                                <div class="block rounded-md rounded-full px-4 py-2 text-xs text-gray-800 flex items-center border border-gray-300">
+                                    <img class="h-8 w-8 object-cover rounded-full mr-md rounded-full mr-2" src="{{ Auth::user()->profile_photo_url }}" alt="{{ Auth::user()->name }}" />
+                                    {{ Auth::user()->name }}
+                                </div>
+
+
+                                
                             </button>
                             @else
                             <span class="inline-flex rounded-md">
@@ -104,6 +109,12 @@
                             <x-jet-dropdown-link href="{{ route('profile.show') }}">
                                 {{ __('Profile') }}
                             </x-jet-dropdown-link>
+
+                            @hasrole('admin')
+                            <x-jet-dropdown-link href="{{ route('adminhome') }}" :inactive="request()->routeIs('adminhome')">
+                                {{ __('Admin Panel') }}
+                            </x-jet-dropdown-link>
+                            @endhasrole
 
                             @if (Laravel\Jetstream\Jetstream::hasApiFeatures())
                             <x-jet-dropdown-link href="{{ route('api-tokens.index') }}">
@@ -142,12 +153,17 @@
     <!-- Responsive Navigation Menu -->
     <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden">
         <div class="pt-2 pb-3 space-y-1">
-            <x-jet-responsive-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
-                {{ __('Dashboard') }}
-            </x-jet-responsive-nav-link>
             @hasrole('admin')
             <x-jet-responsive-nav-link href="{{ route('adminhome') }}" :active="request()->routeIs('adminhome')">
                 {{ __('Admin Home') }}
+            </x-jet-responsive-nav-link>
+            @endhasrole
+            @hasrole('user|admin|superadmin')
+            <x-jet-responsive-nav-link href="{{ route('beginTest') }}" :active="request()->routeIs('beginTest')">
+                {{ __('Take Quiz') }}
+            </x-jet-responsive-nav-link>
+            <x-jet-responsive-nav-link href="{{ route('userHome') }}" :active="request()->routeIs('userHome')">
+                {{ __('ISTQBright Home') }}
             </x-jet-responsive-nav-link>
             @endhasrole
         </div>

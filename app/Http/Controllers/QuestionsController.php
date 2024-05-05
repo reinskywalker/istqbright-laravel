@@ -6,6 +6,7 @@ use App\Models\User;
 use App\Models\Section;
 use App\Models\Question;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Auth;
 
 class QuestionsController extends Controller
@@ -22,11 +23,11 @@ class QuestionsController extends Controller
         return view('admins.detail_question', compact('question', 'answers'));
     }
 
-    public function setStoredQuestion(Section $section, Request $request)
+    public function storeQuestion(Section $section, Request $request)
     {
         $section = $section;
         $data = $request->validate([
-            'question' => 'required',
+            'question' => ['required', Rule::unique('questions')],
             'explanation' => 'required',
             'is_active' => 'required',
             'answers.*.answer' => 'required',
@@ -42,7 +43,16 @@ class QuestionsController extends Controller
             'section_id' => $section->id,
         ]);
 
-        $status = $question->answers()->createMany($data['answers']);
-        return redirect()->route('listSection');
+        $status = $question->answers()->createMany($data['answers'])->push();
+        return redirect()->route('detailSection', $section->id)
+            ->withSuccess('Question created successfully');;
+    }
+
+    function deleteQuestion($id)
+    {
+        $question = Question::findOrFail($id);
+        $question->delete();
+        return redirect()->route('detailSection', $question->section->id)
+            ->withSuccess('Question with id: ' . $question->id . ' deleted successfully');
     }
 }

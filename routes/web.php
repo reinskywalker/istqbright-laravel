@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\userController;
+use App\Http\Controllers\ManageUserController;
 use App\Http\Controllers\SectionsController;
 use App\Http\Controllers\QuestionsController;
 
@@ -16,23 +18,62 @@ use App\Http\Controllers\QuestionsController;
 |
 */
 
-Route::get('/', fn () => view('welcome'));
+Route::get('/', function () {
+    return view('welcome');
+})->name('welcome');
 
 Route::middleware(['auth', 'verified', 'role:admin'])->prefix('admin')->group(function () {
-    Route::get('/dashboard', fn () => view('dashboard'))->name('dashboard');
+
+    Route::get('/users', [ManageUserController::class, 'index'])->name('usersIndex');
+
     Route::get('/adminhome', [AdminController::class, 'adminhome'])->name('adminhome');
 
-    Route::get('/createSection', [SectionsController::class, 'createSection'])->name('createSection');
-    Route::post('/storeSection/section', [SectionsController::class, 'storeSection'])->name('storeSection');
+    Route::get('/globalQuizzes', [AdminController::class, 'globalQuizzes'])->name('globalQuizzes');
 
-    Route::get('/editSection/{section}', [SectionsController::class, 'editSection'])->name('editSection');
-    Route::post('/updateSection/{section}', [SectionsController::class, 'updateSection'])->name('updateSection');
+    Route::get('/createSection', [SectionsController::class, 'createSection'])
+        ->name('createSection');
 
-    Route::get('/listSection', [SectionsController::class, 'listSection'])->name('listSection');
-    Route::get('/detailSection/{section}', [SectionsController::class, 'detailSection'])->name('detailSection');
+    Route::post('/deleteSection/{id}', [SectionsController::class, 'deleteSection'])
+        ->name('deleteSection');
 
-    Route::get('/createQuestion/{section}', [QuestionsController::class, 'createQuestion'])->name('createQuestion');
-    Route::get('/detailQuestion/{question}', [QuestionsController::class, 'detailQuestion'])->name('detailQuestion');
+    Route::post('/storeSection/section', [SectionsController::class, 'storeSection'])
+        ->name('storeSection');
 
-    Route::post('/setStoredQuestion/{section}', [QuestionsController::class, 'setStoredQuestion'])->name('setStoredQuestion');
+    Route::get('/editSection/{section}', [SectionsController::class, 'editSection'])
+        ->name('editSection');
+
+    Route::post('/updateSection/{section}', [SectionsController::class, 'updateSection'])
+        ->name('updateSection');
+
+    Route::get('/listSection', [SectionsController::class, 'listSection'])
+        ->name('listSection');
+
+    Route::get('/detailSection/{section}', [SectionsController::class, 'detailSection'])
+        ->name('detailSection');
+
+    Route::get('/createQuestion/{section}', [QuestionsController::class, 'createQuestion'])
+        ->name('createQuestion');
+
+    Route::get('/detailQuestion/{question}', [QuestionsController::class, 'detailQuestion'])
+        ->name('detailQuestion');
+
+    Route::post('/storeQuestion/{section}', [QuestionsController::class, 'storeQuestion'])
+        ->name('storeQuestion');
+    Route::post('/deleteQuestion/{id}', [QuestionsController::class, 'deleteQuestion'])
+        ->name('deleteQuestion');
+});
+
+Route::middleware(['auth', 'verified', 'role:admin|user'])->prefix('user')->group(function () {
+
+    Route::get('/userHome', [userController::class, 'userHome'])
+        ->name('userHome');
+
+    Route::get('/userQuizDetails/{id}', [userController::class, 'userQuizDetails'])
+        ->name('userQuizDetails');
+
+    Route::post('/deleteUserTest/{id}', [userController::class, 'deleteUserTest'])
+        ->name('deleteUserTest');
+
+    Route::get('/begin-test', [userController::class, 'beginTest'])
+        ->name('beginTest');
 });
