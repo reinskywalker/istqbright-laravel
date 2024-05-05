@@ -71,7 +71,7 @@
                     </x-jet-dropdown>
                 </div>
                 @endif
-                
+
 
                 <!-- Settings Dropdown -->
                 <div class="ml-3 relative">
@@ -85,7 +85,7 @@
                                 </div>
 
 
-                                
+
                             </button>
                             @else
                             <span class="inline-flex rounded-md">
